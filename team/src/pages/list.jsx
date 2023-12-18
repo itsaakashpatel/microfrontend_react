@@ -28,7 +28,7 @@ function ListTeam() {
   }, []);
 
   return (
-    <div className="mt-10 text-xl max-w-xl container mx-auto bg-gray-100 p-4">
+    <div className="mt-10 text-xl max-w-xl container mx-auto bg-gray-100 p-4 max-h-screen overflow-y-auto mb-12">
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded inline-flex items-center float-right"
         onClick={handleClick}

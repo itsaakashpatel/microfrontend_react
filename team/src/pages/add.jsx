@@ -120,7 +120,7 @@ function AddTeam() {
             { value: "admin", label: "Admin - Can delete members" },
           ]}
         />
-        <Button type="submit" title="Save" />
+        <Button type="solid" title="Save" />
       </form>
     </div>
   );

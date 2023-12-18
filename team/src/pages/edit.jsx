@@ -123,6 +123,7 @@ function EditTeam() {
             { value: "regular", label: "Regular - Can't delete members" },
             { value: "admin", label: "Admin - Can delete members" },
           ]}
+          error={errors.role}
         />
         <div className="flex flex-row items-center justify-between">
           <Button title="Delete" type="outline" />

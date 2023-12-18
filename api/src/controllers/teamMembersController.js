@@ -4,7 +4,7 @@ const TeamMember = require("../models/TeamMember");
 class TeamMembersController {
   async getAllTeamMembers(req, res) {
     try {
-      const teamMembers = await TeamMember.find();
+      const teamMembers = await TeamMember.find().sort({ lastUpdated: -1 });
       res.status(200).json({
         status: "success",
         data: teamMembers,
@@ -31,6 +31,7 @@ class TeamMembersController {
         phone,
         email,
         role,
+        lastUpdated: Date.now(),
       });
       await newTeamMember.save();
       res.status(201).json({
@@ -56,7 +57,7 @@ class TeamMembersController {
     try {
       const updatedTeamMember = await TeamMember.findByIdAndUpdate(
         id,
-        { firstName, lastName, phone, email, role },
+        { firstName, lastName, phone, email, role, lastUpdated: Date.now() },
         { new: true }
       );
 
