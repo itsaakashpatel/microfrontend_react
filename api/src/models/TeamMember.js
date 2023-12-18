@@ -4,7 +4,10 @@ const teamMemberSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   phone: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true,
+  },
   role: String,
 });
 

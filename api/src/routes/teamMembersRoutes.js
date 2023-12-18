@@ -1,6 +1,7 @@
 const express = require("express");
 const { check } = require("express-validator");
 const teamMembersController = require("../controllers/teamMembersController");
+const TeamMember = require("../models/TeamMember");
 
 const router = express.Router();
 
