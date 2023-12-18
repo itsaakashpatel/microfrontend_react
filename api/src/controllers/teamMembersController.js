@@ -78,6 +78,30 @@ class TeamMembersController {
         .json({ error: "Internal Server Error", code: 500, status: "fail" });
     }
   }
+
+  async deleteTeamMember(req, res) {
+    const { id } = req.params;
+
+    try {
+      const deletedTeamMember = await TeamMember.findByIdAndDelete(id);
+
+      if (!deletedTeamMember) {
+        return res
+          .status(404)
+          .json({ error: "Team member not found", code: 404, status: "fail" });
+      }
+
+      res.json({
+        status: "success",
+        data: deletedTeamMember,
+        code: 200,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", code: 500, status: "fail" });
+    }
+  }
 }
 
 module.exports = new TeamMembersController();

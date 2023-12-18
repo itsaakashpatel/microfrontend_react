@@ -36,39 +36,66 @@ function EditTeam() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, action) => {
     e.preventDefault();
 
-    fetch(`http://localhost:8085/api/team/${teamMember._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(teamMember),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data?.code == 200) {
-          return navigate("/");
-        }
-
-        if (data?.errors?.length > 0) {
-          const errorObj = {};
-          data.errors.forEach((error) => {
-            errorObj[error.path] = error.msg;
-          });
-          setErrors(errorObj);
-        }
+    if (action === "save") {
+      fetch(`http://localhost:8085/api/team/${teamMember._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(teamMember),
       })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (data?.code == 200) {
+            return navigate("/");
+          }
+
+          if (data?.errors?.length > 0) {
+            const errorObj = {};
+            data.errors.forEach((error) => {
+              errorObj[error.path] = error.msg;
+            });
+            setErrors(errorObj);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (action === "delete") {
+      fetch(`http://localhost:8085/api/team/${teamMember._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(teamMember),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data?.code == 200) {
+            return navigate("/");
+          }
+
+          if (data?.errors?.length > 0) {
+            const errorObj = {};
+            data.errors.forEach((error) => {
+              errorObj[error.path] = error.msg;
+            });
+            setErrors(errorObj);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
     <div className="mt-10 text-xl max-w-xl container mx-auto bg-white-100 p-4">
       <Header title="Edit a Team Member" subtitle="Edit info and role" />
-      <form onSubmit={handleSubmit}>
+      <form>
         <h3 className="font-bold text-base my-2">Info</h3>
         <TextInput
           type="text"
@@ -126,8 +153,18 @@ function EditTeam() {
           error={errors.role}
         />
         <div className="flex flex-row items-center justify-between">
-          <Button title="Delete" type="outline" />
-          <Button title="Save" type="solid" />
+          <Button
+            title="Delete"
+            type="outline"
+            action="delete"
+            onClick={(e) => handleSubmit(e, "delete")}
+          />
+          <Button
+            title="Save"
+            type="solid"
+            action="save"
+            onClick={(e) => handleSubmit(e, "save")}
+          />
         </div>
       </form>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Button({ title, type }) {
+function Button({ title, type, action = "save", onClick }) {
   let buttonClass =
     "my-2 px-8 min-h-5 text-white md:w-auto text-base text-center p-2 rounded inline-flex items-center float-right";
 
@@ -12,7 +12,12 @@ function Button({ title, type }) {
   }
 
   return (
-    <button type="submit" className={buttonClass}>
+    <button
+      type="submit"
+      className={buttonClass}
+      data-action={action}
+      onClick={onClick}
+    >
       {title}
     </button>
   );

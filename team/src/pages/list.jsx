@@ -41,6 +41,8 @@ function ListTeam() {
       />
       {isLoading ? (
         <p>Loading...</p>
+      ) : teamMembers.length === 0 ? (
+        <p>No members available in this team.</p>
       ) : (
         teamMembers.map((member) => (
           <Link to="/edit" state={{ member }} key={member._id}>

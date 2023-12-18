@@ -45,4 +45,6 @@ router.put(
   teamMembersController.editTeamMember
 );
 
+router.delete("/team/:id", teamMembersController.deleteTeamMember);
+
 module.exports = router;
