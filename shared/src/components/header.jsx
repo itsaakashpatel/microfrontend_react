@@ -2,9 +2,12 @@ import React from "react";
 
 function Header({ title = "", subtitle = "" }) {
   return (
-    <div class="flex flex-col">
-      {title && <h1 class="m-3 font-bold">{title}</h1>}
-      {subtitle && <h2 class="m-3 font-bold grayscale-0">{subtitle}</h2>}
+    <div className="flex flex-col">
+      {title && <h1 className="m-3 text-2xl font-bold">{title}</h1>}
+      {subtitle && (
+        <h2 className="mb-3 ml-3 text-base text-gray-400">{subtitle}</h2>
+      )}
+      {(title || subtitle) && <hr className="border-gray-300 my-3" />}
     </div>
   );
 }

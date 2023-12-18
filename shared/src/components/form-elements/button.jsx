@@ -1,11 +1,18 @@
 import React from "react";
 
-function Button({ title }) {
+function Button({ title, type }) {
+  let buttonClass =
+    "my-2 px-8 min-h-5 text-white md:w-auto text-base text-center p-2 rounded inline-flex items-center float-right";
+
+  if (type === "solid") {
+    buttonClass += " bg-blue-500 hover:bg-blue-700";
+  } else if (type === "outline") {
+    buttonClass +=
+      " bg-white hover:bg-red-500 text-red-500 hover:text-white border border-gray-200";
+  }
+
   return (
-    <button
-      type="submit"
-      className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-    >
+    <button type="submit" className={buttonClass}>
       {title}
     </button>
   );
