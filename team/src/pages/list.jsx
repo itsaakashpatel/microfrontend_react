@@ -14,7 +14,6 @@ function ListTeam() {
   };
 
   useEffect(() => {
-    console.log("process.env.API_ENDPOINT", process.env.API_ENDPOINT);
     fetch(`${process.env.API_ENDPOINT}/api/team`)
       .then((response) => response.json())
       .then((data) => {
