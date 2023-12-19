@@ -1,16 +1,11 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom"
-import ListTeam from "./pages/list"
-import AddTeam from "./pages/add"
-import EditTeam from "./pages/edit"
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ListTeam from "./pages/list";
+import AddTeam from "./pages/add";
+import EditTeam from "./pages/edit";
 
-import "./index.scss"
+import "./index.scss";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +20,7 @@ const router = createBrowserRouter([
     path: "edit",
     element: <EditTeam />,
   },
-])
+]);
 
 const App = () => (
   <RouterProvider router={router}>
@@ -36,5 +31,5 @@ const App = () => (
       <div>CSS: Tailwind</div>
     </div>
   </RouterProvider>
-)
-ReactDOM.render(<App />, document.getElementById("app"))
+);
+ReactDOM.render(<App />, document.getElementById("app"));
