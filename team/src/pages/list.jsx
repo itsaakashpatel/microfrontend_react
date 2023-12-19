@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react"
-import Header from "shared/Header"
-import Member from "../components/member"
-import { PlusCircleIcon } from "@heroicons/react/24/solid"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import Header from "shared/Header";
+import Member from "../components/member";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { Link, useNavigate } from "react-router-dom";
 
 function ListTeam() {
-  const navigate = useNavigate()
-  const [teamMembers, setTeamMembers] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate();
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleClick = () => {
-    navigate("/add")
-  }
+    navigate("/add");
+  };
 
   useEffect(() => {
+    console.log("process.env.API_ENDPOINT", process.env.API_ENDPOINT);
     fetch(`${process.env.API_ENDPOINT}/api/team`)
       .then((response) => response.json())
       .then((data) => {
         if (data?.code === 200) {
-          setTeamMembers(data.data)
+          setTeamMembers(data.data);
         }
       })
       .catch((error) => console.error(error))
       .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="mt-10 text-xl max-w-xl container mx-auto bg-gray-100 p-4 max-h-screen overflow-y-auto mb-12">
@@ -56,7 +57,7 @@ function ListTeam() {
         ))
       )}
     </div>
-  )
+  );
 }
 
-export default ListTeam
+export default ListTeam;
