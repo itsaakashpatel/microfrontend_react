@@ -1,10 +1,10 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin")
 
-const deps = require("./package.json").dependencies;
+const deps = require("./package.json").dependencies
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:8080/",
+    publicPath: argv.mode === "development" ? "http://localhost:8080/" : "/",
   },
 
   resolve: {
@@ -44,7 +44,10 @@ module.exports = (_, argv) => ({
       name: "team",
       filename: "remoteEntry.js",
       remotes: {
-        shared: "shared@http://localhost:8081/remoteEntry.js",
+        shared:
+          argv.mode === "development"
+            ? "shared@http://localhost:8081/remoteEntry.js"
+            : `shared@${process.env.SHARED_PACKAGE_URL}/remoteEntry.js`,
       },
       exposes: {},
       shared: {
@@ -63,4 +66,4 @@ module.exports = (_, argv) => ({
       template: "./src/index.html",
     }),
   ],
-});
+})
