@@ -1,0 +1,22 @@
+{
+  "name": "microfrontend_react",
+  "version": "1.0.0",
+  "description": "microfrontend app",
+  "main": "index.js",
+  "repository": "https://github.com/itsaakashpatel/microfrontend_react.git",
+  "author": "Aakash Patel <hi@aakashpatel.in>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "./*"
+  ],
+  "scripts": {
+    "start": "yarn --cwd team start",
+    "shared": "yarn --cwd shared start",
+    "api": "yarn --cwd api start",
+    "dev": "npm-run-all --parallel start shared api"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
