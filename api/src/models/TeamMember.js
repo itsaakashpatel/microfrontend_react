@@ -9,6 +9,10 @@ const teamMemberSchema = new mongoose.Schema({
     unique: true,
   },
   role: String,
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const TeamMember = mongoose.model("TeamMember", teamMemberSchema);

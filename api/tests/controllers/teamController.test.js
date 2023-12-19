@@ -137,4 +137,50 @@ describe("Team Members Controller Test", () => {
       expect(res.body).to.be.an("object").that.has.property("errors");
     });
   });
+
+  describe("DELETE /api/team/:id", () => {
+    it("should delete an existing team member", async () => {
+      // Add a team member for testing
+      const existingTeamMember = await TeamMember.create({
+        firstName: "Existing",
+        lastName: "Member",
+        phone: "5551234567",
+        email: "existing@example.com",
+        role: "regular",
+      });
+
+      const res = await chai
+        .request(app)
+        .delete(`/api/team/${existingTeamMember._id}`);
+
+      expect(res).to.have.status(200);
+      expect(res.body)
+        .to.be.an("object")
+        .that.has.property("status")
+        .that.includes("success");
+
+      // Check if the team member is actually deleted from the database
+      const deletedTeamMember = await TeamMember.findById(
+        existingTeamMember._id
+      );
+      expect(deletedTeamMember).to.be.null;
+    });
+
+    it("should return an error if the team member does not exist", async () => {
+      const nonExistingTeamMemberId = "21312312312312";
+
+      const res = await chai
+        .request(app)
+        .delete(`/api/team/${nonExistingTeamMemberId}`);
+
+      expect(res).to.satisfy((response) => {
+        return response.status === 404 || response.status === 500;
+      });
+
+      expect(res.body)
+        .to.be.an("object")
+        .that.has.property("status")
+        .that.includes("fail");
+    });
+  });
 });

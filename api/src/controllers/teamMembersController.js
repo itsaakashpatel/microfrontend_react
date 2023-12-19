@@ -4,7 +4,7 @@ const TeamMember = require("../models/TeamMember");
 class TeamMembersController {
   async getAllTeamMembers(req, res) {
     try {
-      const teamMembers = await TeamMember.find();
+      const teamMembers = await TeamMember.find().sort({ lastUpdated: -1 });
       res.status(200).json({
         status: "success",
         data: teamMembers,
@@ -31,6 +31,7 @@ class TeamMembersController {
         phone,
         email,
         role,
+        lastUpdated: Date.now(),
       });
       await newTeamMember.save();
       res.status(201).json({
@@ -56,7 +57,7 @@ class TeamMembersController {
     try {
       const updatedTeamMember = await TeamMember.findByIdAndUpdate(
         id,
-        { firstName, lastName, phone, email, role },
+        { firstName, lastName, phone, email, role, lastUpdated: Date.now() },
         { new: true }
       );
 
@@ -69,6 +70,30 @@ class TeamMembersController {
       res.json({
         status: "success",
         data: updatedTeamMember,
+        code: 200,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", code: 500, status: "fail" });
+    }
+  }
+
+  async deleteTeamMember(req, res) {
+    const { id } = req.params;
+
+    try {
+      const deletedTeamMember = await TeamMember.findByIdAndDelete(id);
+
+      if (!deletedTeamMember) {
+        return res
+          .status(404)
+          .json({ error: "Team member not found", code: 404, status: "fail" });
+      }
+
+      res.json({
+        status: "success",
+        data: deletedTeamMember,
         code: 200,
       });
     } catch (error) {

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <AddTeam />,
   },
   {
-    path: "edit/:id",
+    path: "edit",
     element: <EditTeam />,
   },
 ]);
