@@ -13,6 +13,11 @@ module.exports = (_, argv) => ({
     topLevelAwait: true,
   },
 
+  optimization: {
+    runtimeChunk: false,
+    splitChunks: false,
+  },
+
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
