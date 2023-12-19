@@ -6,7 +6,7 @@ const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
     uniqueName: "shared",
-    publicPath: argv.mode === "development" ? "http://localhost:8081/" : "/",
+    publicPath: "auto",
   },
 
   experiments: {
