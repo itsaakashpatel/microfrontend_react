@@ -1,41 +1,41 @@
 //ADD TEAM MEMBER PAGE
 
-import React, { useState } from "react";
-import Header from "shared/Header";
-import Button from "shared/Button";
-import TextInput from "shared/Input";
-import Select from "shared/Select";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import Header from "shared/Header"
+import Button from "shared/Button"
+import TextInput from "shared/Input"
+import Select from "shared/Select"
+import { useNavigate } from "react-router-dom"
 
 function AddTeam() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
     role: "regular",
-  });
+  })
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-  });
+  })
 
   const handleChange = (e) => {
     if (e.target.name) {
       setFormValues({
         ...formValues,
         [e.target.name]: e.target.value,
-      });
+      })
     }
-  };
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    fetch("http://localhost:8085/api/team", {
+    fetch(`${process.env.API_ENDPOINT}/api/team`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,21 +45,21 @@ function AddTeam() {
       .then((response) => response.json())
       .then((data) => {
         if (data?.code == 201) {
-          return navigate("/");
+          return navigate("/")
         }
 
         if (data?.errors?.length > 0) {
-          const errorObj = {};
+          const errorObj = {}
           data.errors.forEach((error) => {
-            errorObj[error.path] = error.msg;
-          });
-          setErrors(errorObj);
+            errorObj[error.path] = error.msg
+          })
+          setErrors(errorObj)
         }
       })
       .catch((error) => {
-        console.error(error);
-      });
-  };
+        console.error(error)
+      })
+  }
 
   return (
     <div className="mt-10 text-xl max-w-xl container mx-auto bg-white-100 p-4">
@@ -123,7 +123,7 @@ function AddTeam() {
         <Button type="solid" title="Save" />
       </form>
     </div>
-  );
+  )
 }
 
-export default AddTeam;
+export default AddTeam

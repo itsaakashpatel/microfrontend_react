@@ -1,16 +1,16 @@
 // EDIT TEAM MEMBER PAGE
 
-import React, { useState, useEffect } from "react";
-import Header from "shared/Header";
-import Button from "shared/Button";
-import TextInput from "shared/Input";
-import Select from "shared/Select";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import Header from "shared/Header"
+import Button from "shared/Button"
+import TextInput from "shared/Input"
+import Select from "shared/Select"
+import { useLocation, useNavigate } from "react-router-dom"
 
 function EditTeam() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { member } = location.state;
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { member } = location.state
   const [teamMember, setTeamMember] = useState({
     _id: member?._id,
     firstName: member?.firstName,
@@ -18,29 +18,29 @@ function EditTeam() {
     email: member?.email,
     phone: member?.phone,
     role: member?.role,
-  });
+  })
 
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-  });
+  })
 
   const handleChange = (e) => {
     if (e.target.name) {
       setTeamMember({
         ...teamMember,
         [e.target.name]: e.target.value,
-      });
+      })
     }
-  };
+  }
 
   const handleSubmit = (e, action) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (action === "save") {
-      fetch(`http://localhost:8085/api/team/${teamMember._id}`, {
+      fetch(`${process.env.API_ENDPOINT}/api/team/${teamMember._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -50,22 +50,22 @@ function EditTeam() {
         .then((response) => response.json())
         .then((data) => {
           if (data?.code == 200) {
-            return navigate("/");
+            return navigate("/")
           }
 
           if (data?.errors?.length > 0) {
-            const errorObj = {};
+            const errorObj = {}
             data.errors.forEach((error) => {
-              errorObj[error.path] = error.msg;
-            });
-            setErrors(errorObj);
+              errorObj[error.path] = error.msg
+            })
+            setErrors(errorObj)
           }
         })
         .catch((error) => {
-          console.error(error);
-        });
+          console.error(error)
+        })
     } else if (action === "delete") {
-      fetch(`http://localhost:8085/api/team/${teamMember._id}`, {
+      fetch(`${process.env.API_ENDPOINT}/api/team/${teamMember._id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -75,22 +75,22 @@ function EditTeam() {
         .then((response) => response.json())
         .then((data) => {
           if (data?.code == 200) {
-            return navigate("/");
+            return navigate("/")
           }
 
           if (data?.errors?.length > 0) {
-            const errorObj = {};
+            const errorObj = {}
             data.errors.forEach((error) => {
-              errorObj[error.path] = error.msg;
-            });
-            setErrors(errorObj);
+              errorObj[error.path] = error.msg
+            })
+            setErrors(errorObj)
           }
         })
         .catch((error) => {
-          console.error(error);
-        });
+          console.error(error)
+        })
     }
-  };
+  }
 
   return (
     <div className="mt-10 text-xl max-w-xl container mx-auto bg-white-100 p-4">
@@ -168,7 +168,7 @@ function EditTeam() {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default EditTeam;
+export default EditTeam
