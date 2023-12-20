@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "shared/Header";
 import Member from "../components/member";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 
 function ListTeam() {
@@ -29,12 +29,12 @@ function ListTeam() {
 
   return (
     <div className="mt-10 text-xl max-w-xl container mx-auto bg-gray-100 p-4 max-h-screen overflow-y-auto mb-12">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white p-2 rounded inline-flex items-center float-right"
-        onClick={handleClick}
-      >
-        <PlusCircleIcon className="h-5 w-5" />
-      </button>
+      <div className="flex float-right m-3">
+        <PlusIcon
+          className="h-6 w-6 text-blue-600  hover:bg-white-700 cursor-pointer "
+          onClick={handleClick}
+        />
+      </div>
       <Header
         title="Team members"
         subtitle={`You have ${teamMembers.length} team members.`}
